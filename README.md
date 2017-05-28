@@ -1,6 +1,5 @@
 # Internet Communications Engine aka ICE - an open source RPC framework developed by ZeroC  
 
-[![CI](https://travis-ci.org/stalk-calvin/ice-protocol-examples.svg?branch=master)](https://travis-ci.org/stalk-calvin/ice-protocol-examples)
 [![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 Ice implements a proprietary communications protocol, called the Ice protocol, that can run over TCP, TLS, UDP, and WebSocket.[4] As its name indicates, Ice can be suitable for applications that communicate over the Internet, and includes functionality for traversing firewalls.
