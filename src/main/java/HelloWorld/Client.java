@@ -1,40 +1,39 @@
 package HelloWorld;
 
-import firstHelloWorld.HelloWorldPrx;
-import firstHelloWorld.HelloWorldPrxHelper;
+import myHelloWorld.HelloWorldPrx;
+import myHelloWorld.HelloWorldPrxHelper;
 
 public class Client {
-
-    public static void main(String[] args) {
-
+    public static void
+    main(String[] args)
+    {
+        int status = 0;
         Ice.Communicator ic = null;
         try {
-            // Initialize Ice run time
             ic = Ice.Util.initialize(args);
+            Ice.ObjectPrx base = ic.stringToProxy("SimplePrinter:default -p 10000");
+            HelloWorldPrx printer = HelloWorldPrxHelper.checkedCast(base);
+            if (printer == null)
+                throw new Error("Invalid proxy");
 
-            // Access to remote adapter JavaHonk agent
-            Ice.ObjectPrx base = ic.stringToProxy("JavaHonk:default -p 10000");
-
-            // Convert proxy
-            HelloWorldPrx helloWorld = HelloWorldPrxHelper.checkedCast(base);
-
-            // Check if conversion proxy is valid
-            if (helloWorld == null) {
-                throw new Error("Proxy is invalid");
-            }
-
-            // Call the method and pass the value
-            helloWorld.greeting("Hello World");
-            helloWorld.testAnotherOperation("Java Honk Hello World!");
-        } catch (Exception e) {
+            printer.greeting("Hello World!");
+        } catch (Ice.LocalException e) {
             e.printStackTrace();
-            System.exit(1);
-        } finally {
-            if (ic != null) {
+            status = 1;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            status = 1;
+        }
+        if (ic != null) {
+            // Clean up
+            //
+            try {
                 ic.destroy();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                status = 1;
             }
         }
-        System.exit(1);
+        System.exit(status);
     }
-
 }

@@ -1,14 +1,14 @@
 package HelloWorld;
 
 import Ice.Current;
-import firstHelloWorld._HelloWorldDisp;
+import myHelloWorld._HelloWorldDisp;
 
 public class HelloWorldI extends _HelloWorldDisp {
 
     private static final long serialVersionUID = 1L;
 
     public void greeting(String value, Current __current) {
-        System.out.println("Java Honk first ICE application: "+value);
+        System.out.println("Greeting: "+value);
 
     }
 
